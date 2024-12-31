@@ -5,10 +5,7 @@ const cors = require('cors');
 const path = require('path');
 require('dotenv').config()
 const app = express();
-
 const routes = require('./src/routes');
-const generativeAIService = require('./generativeAI'); 
-const openai = require("./openAI");
 
 app.use(cors());
 app.options('*', cors());
@@ -20,36 +17,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/', routes);  
-
-app.post('/generate', async (req, res) => {
-  const { message } = req.body;  
-  
-  try {
-    const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-          { role: "user", content: "Tell me about the Eiffel Tower." },
-      ],
-      max_tokens: 10,
-  });
-
-    console.log("Completion Response:", );
-    res.status(200).json({
-      success: true,
-      message: 'Answer found!',
-      data: response.choices[0].text.trim()
-    });
-
-
-} catch (error) {
-    console.error("Error:", error.message);
-    res.status(200).json({
-      success: false,
-      message: error.message,
-      data: error.message
-    });
-}
-});
 
 //const options = {
   //key: fs.readFileSync(path.join(__dirname, 'ssl/key.pem')),

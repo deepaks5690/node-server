@@ -50,7 +50,7 @@ const getUsers = async (req, res) => {
     }
   };
   
-  // REGISTER USER //
+  // REGISTER USER pp//
   const addUser = async (req, res) => {
     
     const { name, surname, address, city, state, country, email, password } = req.body;
